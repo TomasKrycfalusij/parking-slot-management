@@ -19,4 +19,4 @@ Cíl aplikace je možnost pro uživatele si až měsíc dopředu zaregistrovat m
 1. Uživatel se v menu odhlásí
 
 ## Integrace
-- žádná
+- Žádná
