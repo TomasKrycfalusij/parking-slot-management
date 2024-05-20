@@ -12,8 +12,8 @@ Cíl aplikace je možnost pro uživatele si až měsíc dopředu zaregistrovat m
 4. Uživatel si vybere měsíc a aktuální den na který klikne a tím se zaregistruje
 
 ### Vedlejší scénář
-1. Uživatel se přesměruje na stránku s jeho registracemi
-2. Uživatel smaže svou registraci
+1. Uživatel se přesměruje na stránku se seznamem registrací uživatele
+3. Uživatel smaže svou registraci
 
 ## Integrace
 - žádná
