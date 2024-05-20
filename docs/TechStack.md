@@ -1,4 +1,4 @@
-# Nástroje
+# Tech Stack
 
 ### NextJS
 - Využívaný framework
