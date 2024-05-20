@@ -1,7 +1,7 @@
 # Analýza
 
 ## Business cíl
-Cíl aplikace je možnost pro uživatele si dopředu zaregistrovat místo na parkovišti.
+Cíl aplikace je možnost pro uživatele si až měsíc dopředu zaregistrovat místo na parkovišti. Svou registraci může kdykoliv zrušit.
 
 ## Funkční požadavky
 
