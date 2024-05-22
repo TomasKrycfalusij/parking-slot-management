@@ -1,40 +1,16 @@
-"use client"
-// pages/index.tsx
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/app/page.module.css";
-import { useEffect, useState } from "react";
-import connectToDatabase from "../../lib/mongodb";
-import { mongo } from "mongoose";
+import { getDaysFromDatabase } from "./getDays";
+import Days from "../components/Days";
+import { DayType } from "../types/types";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export type Day = {
-  _id: string;
-  date: string;
-  capacity: number;
-  bookings: string[];
-};
+const Home: React.FC = async () => {
 
-const Home: React.FC = () => {
-  const [days, setDays] = useState<Day[]>([]);
-  
-
-  useEffect(() => {
-    async function fetchDays() {
-      await connectToDatabase();
-      
-      const response = await connectToDatabase();
-      console.log("RESPONSE", response)
-      /*
-      const data = await response.json();
-      console.log("data", data);
-      setDays(data);
-      */
-    }
-
-    fetchDays();
-  }, []);
+  const days = await getDaysFromDatabase();
+  console.log(days);
 
   return (
     <>
@@ -46,13 +22,7 @@ const Home: React.FC = () => {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <h1>Registrace</h1>
-        <ul>
-          {days.map((day) => (
-            <li key={day._id}>
-              {new Date(day.date).toLocaleDateString()} - {day.capacity}
-            </li>
-          ))}
-        </ul>
+        <Days days={days} />
       </main>
     </>
   );
