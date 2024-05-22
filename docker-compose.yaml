@@ -1,11 +1,14 @@
 services:
-  mongo:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
     build:
       context: ./mongodb_rs
       args:
         MONGO_VERSION: latest
     environment:
-      MONGO_REPLICA_HOST: mongo
+      MONGO_REPLICA_HOST: mongodb
       MONGO_REPLICA_PORT: 27017
       MONGO_INITDB_ROOT_USERNAME: krycfalusijtomas
       MONGO_INITDB_ROOT_PASSWORD: Admin123!
@@ -13,20 +16,4 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - mongo-data:/data/db
-
-  prisma:
-    image: prisma/prisma:latest
-    restart: always
-    ports:
-      - '27017:27017'
-    environment:
-      PRISMA_CONFIG: |
-        port: 4466
-        databases:
-          default:
-            connector: mongo
-            uri: mongodb://mongo:27017/mongo
-
-volumes:
-  mongo-data:
+      - ./mongo-data:/data/db

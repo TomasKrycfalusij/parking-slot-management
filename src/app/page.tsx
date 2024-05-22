@@ -4,6 +4,8 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/app/page.module.css";
 import { useEffect, useState } from "react";
+import connectToDatabase from "../../lib/mongodb";
+import { mongo } from "mongoose";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,13 +18,19 @@ export type Day = {
 
 const Home: React.FC = () => {
   const [days, setDays] = useState<Day[]>([]);
+  
 
   useEffect(() => {
     async function fetchDays() {
-      const response = await fetch('/api/days');
+      await connectToDatabase();
+      
+      const response = await connectToDatabase();
+      console.log("RESPONSE", response)
+      /*
       const data = await response.json();
       console.log("data", data);
       setDays(data);
+      */
     }
 
     fetchDays();
