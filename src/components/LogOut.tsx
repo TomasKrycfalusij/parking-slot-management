@@ -1,18 +1,13 @@
 "use client"
-import React, { useState, useRef, useEffect } from 'react';
-import { useRouter } from "next/navigation";
+import React from 'react';
+import { useUser } from './UserContext';
 
 const LogOut = () => {
-    const router = useRouter();
-
-    const handleLogOut = () => {
-        localStorage.removeItem('selectedUser');
-        router.push('/');
-    }
+  const { logOutUser } = useUser();
 
   return (
     <div>
-        <button type="submit" onClick={() => handleLogOut()}>Odhlásit se</button>
+        <button type="submit" onClick={() => logOutUser()}>Odhlásit se</button>
     </div>
   )
 }
