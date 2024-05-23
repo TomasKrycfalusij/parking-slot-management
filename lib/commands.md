@@ -8,3 +8,4 @@ docker exec -it mongodb bash
 mongosh --username admin --password Admin123! --authenticationDatabase admin
 
 SEEDOVÁNÍ DAT
+node ./lib/seed.js
