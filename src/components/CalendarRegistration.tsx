@@ -7,6 +7,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { Nullable } from 'primereact/ts-helpers';
 import { useUser } from './UserContext';
+import './calendarRegistration.css';
 
 interface CalendarRegistrationProps {
   days?: IDay[];
@@ -49,8 +50,8 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
         });
       }
     }
+    window.location.reload();
   };
-
 
   const today = new Date();
   const maxDate = new Date();
@@ -75,8 +76,8 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
   return (
     <div>
       <p>Calendar</p>
-
       <Calendar 
+        className="calendar"
         value={selectedDate || undefined} 
         onChange={(e) => handleDateChange(e)} 
         showIcon 
@@ -89,7 +90,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
         dateTemplate={(date) => {
           const matchedDay = matchDate(date, days);
           return (
-            <div>
+            <div className="singleDay">
               <span>{date.day}</span>
               <p>
                 {matchedDay ? `${matchedDay.bookings.length} / ${matchedDay.capacity}` : ''}

@@ -1,0 +1,31 @@
+.calendar {
+    border-radius: 1em;
+    overflow: hidden;
+    background: var(--calendar-color);
+    box-shadow: 0px 0px 6px 0px rgba(255, 255, 255, 0.3);
+    width: 500px;
+    min-width: 300px;
+}
+
+.calendar td {
+    height: 50px;
+    width: 50px;
+}
+
+.singleDay {
+    background: var(--calendar-color);
+    border: none;
+}
+ 
+.calendar .p-datepicker {
+    background: var(--calendar-color);
+    border: none;
+}
+
+.calendar .p-datepicker-header {
+    background: var(--calendar-color);
+}
+
+.calendar .p-datepicker-trigger {
+    border: none;
+}
