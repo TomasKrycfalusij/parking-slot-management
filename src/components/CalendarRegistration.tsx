@@ -29,7 +29,18 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
       const matchedDay = days?.find(singleDay => new Date(singleDay.date).toLocaleDateString('cs-CZ') === selectedDateString);
   
       if (matchedDay) {
-        if (matchedDay.bookings.length < matchedDay.capacity) {
+        const isUserRegistered = matchedDay.bookings.includes(loggedUser);
+
+        if (isUserRegistered) {
+          await fetch('/api/removePersonFromDay', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ dayId: matchedDay._id, person: loggedUser }),
+          });
+          console.log("user removed");
+        } else if (matchedDay.bookings.length < matchedDay.capacity) {
           await fetch('/api/addPersonToDay', {
             method: 'POST',
             headers: {
@@ -37,7 +48,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
             },
             body: JSON.stringify({ dayId: matchedDay._id, person: loggedUser }),
           });
-          console.log("empty");
+          console.log("user added");
         } else {
           // show error message
           console.log("full");
@@ -91,12 +102,18 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
         variant="filled"
         dateTemplate={(date) => {
           const matchedDay = matchDate(date, days);
+          const isUserRegistered = matchedDay?.bookings.includes(loggedUser);
+
           return (
             <div className={`singleDay`}>
               <span className={`dayNumber`}>{date.day}</span>
               <p className={`availableSpacesNumber`}>
                 {matchedDay ? `${matchedDay.capacity - matchedDay.bookings.length}/${matchedDay.capacity}` : `${defaultCapacity}/${defaultCapacity}`}
               </p>
+<<<<<<< Updated upstream
+=======
+              {isUserRegistered && <span className={`registeredSign`}></span>}
+>>>>>>> Stashed changes
               <span className={`registeredSign`}></span>
             </div>
           );
