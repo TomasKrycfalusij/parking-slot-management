@@ -110,11 +110,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
               <p className={`availableSpacesNumber`}>
                 {matchedDay ? `${matchedDay.capacity - matchedDay.bookings.length}/${matchedDay.capacity}` : `${defaultCapacity}/${defaultCapacity}`}
               </p>
-<<<<<<< Updated upstream
-=======
               {isUserRegistered && <span className={`registeredSign`}></span>}
->>>>>>> Stashed changes
-              <span className={`registeredSign`}></span>
             </div>
           );
         }}
