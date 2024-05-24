@@ -13,6 +13,8 @@ interface CalendarRegistrationProps {
   days?: IDay[];
 }
 
+const defaultCapacity: number = 10;
+
 const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => {
   const [selectedDate, setSelectedDate] = useState<Nullable<Date>>(null);
   const [viewDate, setViewDate] = useState<Date | undefined>(new Date());
@@ -46,7 +48,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ date: e.value, capacity: 2, person: loggedUser }),
+          body: JSON.stringify({ date: e.value, capacity: defaultCapacity, person: loggedUser }),
         });
       }
     }
@@ -77,7 +79,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
     <div>
       <p>Calendar</p>
       <Calendar 
-        className="calendar"
+        className={`calendar`}
         value={selectedDate || undefined} 
         onChange={(e) => handleDateChange(e)} 
         showIcon 
@@ -90,11 +92,12 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
         dateTemplate={(date) => {
           const matchedDay = matchDate(date, days);
           return (
-            <div className="singleDay">
-              <span>{date.day}</span>
-              <p>
-                {matchedDay ? `${matchedDay.bookings.length} / ${matchedDay.capacity}` : ''}
+            <div className={`singleDay`}>
+              <span className={`dayNumber`}>{date.day}</span>
+              <p className={`availableSpacesNumber`}>
+                {matchedDay ? `${matchedDay.capacity - matchedDay.bookings.length}/${matchedDay.capacity}` : `${defaultCapacity}/${defaultCapacity}`}
               </p>
+              <span className={`registeredSign`}></span>
             </div>
           );
         }}

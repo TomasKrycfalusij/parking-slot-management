@@ -5,7 +5,7 @@
 }
 
 html, tr, td, th, p {
-  color: var(--custom-text-color) !important;
+  color: var(--custom-text-color);
 }
 
 body {
