@@ -1,22 +1,23 @@
 "use client"
-import { DayType } from '../types/types';
+import { IDay } from '../../models/day';
 import React, { useState } from 'react';
 import { Calendar, CalendarDateTemplateEvent } from 'primereact/calendar';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { Nullable } from 'primereact/ts-helpers';
-import { addPersonToDay, addPersonToNewDay } from '@/app/getDays';
+import { useUser } from './UserContext';
 
 interface CalendarRegistrationProps {
-  days?: DayType[];
+  days?: IDay[];
 }
 
 const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => {
   const [selectedDate, setSelectedDate] = useState<Nullable<Date>>(null);
   const [viewDate, setViewDate] = useState<Date | undefined>(new Date());
+  const { loggedUser } = useUser();
 
-  const handleDateChange = (e: { value: Nullable<Date> }) => {
+  const handleDateChange = async (e: { value: Nullable<Date> }) => {
     setSelectedDate(e.value);
   
     if (e.value) {
@@ -26,18 +27,30 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
   
       if (matchedDay) {
         if (matchedDay.bookings.length < matchedDay.capacity) {
-          addPersonToDay(matchedDay._id, "User");
+          await fetch('/api/addPersonToDay', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ dayId: matchedDay._id, person: loggedUser }),
+          });
           console.log("empty");
         } else {
           // show error message
           console.log("full");
         }
       } else {
-        addPersonToNewDay(e.value, 3);
+        await fetch('/api/addPersonToNewDay', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ date: e.value, capacity: 2, person: loggedUser }),
+        });
       }
     }
   };
-  
+
 
   const today = new Date();
   const maxDate = new Date();
@@ -54,7 +67,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
     return new Date(year, month, day).toLocaleDateString('cs-CZ');
   };
 
-  const matchDate = (date: CalendarDateTemplateEvent, days: DayType[] | undefined) => {
+  const matchDate = (date: CalendarDateTemplateEvent, days: IDay[] | undefined) => {
     const dateString = createComparableDate(date.day, date.month, date.year);
     return days?.find(singleDay => new Date(singleDay.date).toLocaleDateString('cs-CZ') === dateString);
   };
@@ -86,14 +99,6 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
         }}
       />
       <p>Zvolené datum: {selectedDate ? selectedDate.toLocaleDateString('cs-CZ') : "No date selected"}</p>
-      <div>
-        {days?.map(day => (
-          <div key={String(day._id)}>
-            <p>{new Date(day.date).toLocaleDateString('cs-CZ')}</p>
-            <p>Capacity: {day.bookings.length} / {day.capacity}</p>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };

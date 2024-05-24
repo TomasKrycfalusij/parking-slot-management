@@ -7,7 +7,6 @@ import CalendarRegistration from '@/components/CalendarRegistration';
 
 const page = async () => {
     const days = await getDaysFromDatabase();
-
   
   return (
     <div>
