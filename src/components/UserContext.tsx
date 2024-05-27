@@ -1,6 +1,6 @@
 "use client"
 import React, { PropsWithChildren, createContext, use, useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 interface UserContextType {
   loggedUser: string;
@@ -13,6 +13,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [loggedUser, setLoggedUser] = useState<string>('');
   const router = useRouter();
+  const pathname = usePathname();
 
   const loginUser = (user: string) => {
     setLoggedUser(user);
@@ -23,13 +24,19 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const logOutUser = () => {
     localStorage.removeItem('selectedUser');
     router.push('/');
-}
+  }
 
   useEffect(() => {
     const storedUser = localStorage.getItem('selectedUser');
-    if (storedUser) {
+    if (storedUser && pathname === '/') {
       setLoggedUser(storedUser);
       router.push('/calendar');
+    }
+    else if (storedUser && pathname !== '/') {
+      setLoggedUser(storedUser);
+    }
+    else if (!storedUser) {
+      router.push('/');
     }
   }, []);
 

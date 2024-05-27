@@ -1,10 +1,11 @@
 :root {
-  --background-color: #212121;
-  --inversed-text-color: #212121;
+  --background-color: #1b1b1b;
+  --inversed-text-color: #1b1b1b;
   --custom-text-color: #e1e1e1;
   --button-color: #e1e1e1;
-  --inversed-button-color: #212121;
-  --calendar-color: #2f2f2f;
+  --inversed-button-color: #1b1b1b;
+  --calendar-color: #2c2c2c;
+  --navbar-color: #2c2c2c;
 }
 
 html, tr, td, th, p, h1, h2, h3, h4, h5, h6, a, span, div, input, button, select, option, label, textarea {

@@ -15,8 +15,8 @@ const LoginComponent = () => {
     'Holec Tomáš',
     'Jasso Miroslav',
     'Kačmár Vítězslav',
-    'Košek Michal',
     'Kosina Jan',
+    'Košek Michal',
     'Kotas Oldřich',
     'Kulhánek Tomáš',
     'Kvapil Josef',
@@ -38,8 +38,7 @@ const LoginComponent = () => {
     'Vyskoč Ondřej'
   ];
 
-  const sortedNames = [...names].sort((a, b) => a.localeCompare(b));
-  const [selectedUserByInput, setSelectedUserByInput] = useState<string>(sortedNames[0]);
+  const [selectedUserByInput, setSelectedUserByInput] = useState<string>(names[0]);
   const { loggedUser, loginUser } = useUser();
 
   const handleUserChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -56,7 +55,7 @@ const LoginComponent = () => {
     <div className={loginStyles.inputContainer}>
       <p className={loginStyles.loginDescription}>Vyberte uživatele:</p>
       <select value={selectedUserByInput} onChange={handleUserChange}>
-        {sortedNames.map((name, index) => (
+        {names.map((name, index) => (
           <option key={index} value={name}>
             {name}
           </option>
