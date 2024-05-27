@@ -4,7 +4,7 @@
     background: var(--calendar-color);
     box-shadow: 0px 0px 6px 0px rgba(255, 255, 255, 0.3);
     width: 100%;
-    min-width: 18.75rem;
+    max-width: 18.75rem;
 }
 
 .calendar > * {
@@ -14,19 +14,18 @@
 .calendar .p-datepicker {
     background: var(--calendar-color);
     border: none;
-    max-width: 18rem;
+    width: auto;
 }
 
 @media screen and (min-width: 360px) {
-    .calendar .p-datepicker {
-        max-width: 19rem;
+    .calendar {
+        max-width: 20rem;
     } 
 }
 
-
 @media screen and (min-width: 768px) {
-    .calendar .p-datepicker {
-        max-width: 25rem;
+    .calendar {
+        max-width: 30rem;
     }
 }
 
@@ -66,7 +65,6 @@
     width: 80px;
 }
 
-
 .calendar .p-datepicker-calendar > tbody > tr > td > span {
     background: var(--calendar-color);
     transition-duration: 0.3s;
@@ -74,8 +72,13 @@
     border-radius: 50% 50% 2% 50%
 }
 
+.calendar .p-datepicker-calendar > tbody > tr > td > span {
+    background: var(--calendar-color);
+    transition: background-color 0.3s;
+}
+
 .calendar .p-datepicker-calendar > tbody > tr > td > span:hover {
-    background: var(--custom-text-color);
+    background-color: var(--custom-text-color);
 }
 
 .singleDay > .dayNumber, .availableSpacesNumber {
@@ -152,4 +155,13 @@
 
 .p-disabled {
     opacity: 0.3;
+}
+
+.p-monthpicker-month, .p-yearpicker-year {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.p-monthpicker-month:hover, .p-yearpicker-year:hover {
+    background-color: var(--custom-text-color);
+    color: var(--calendar-color);
 }
