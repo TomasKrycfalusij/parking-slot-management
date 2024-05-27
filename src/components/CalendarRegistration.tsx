@@ -1,6 +1,6 @@
 "use client"
 import { IDay } from '../../models/day';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, CalendarDateTemplateEvent } from 'primereact/calendar';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -17,8 +17,17 @@ const defaultCapacity: number = 10;
 
 const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => {
   const [selectedDate, setSelectedDate] = useState<Nullable<Date>>(null);
-  const [viewDate, setViewDate] = useState<Date | undefined>(new Date());
+  const [viewDate, setViewDate] = useState<Date | undefined>(new Date())
   const { loggedUser } = useUser();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedViewDate = localStorage.getItem('viewDate');
+      if (storedViewDate) {
+        setViewDate(new Date(storedViewDate));
+      }
+    }
+  }, []);
 
   const handleDateChange = async (e: { value: Nullable<Date> }) => {
     setSelectedDate(e.value);
@@ -50,7 +59,6 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
           });
           console.log("user added");
         } else {
-          // show error message
           console.log("full");
         }
       } else {
@@ -74,6 +82,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
     const newViewDate = e.value;
     if (newViewDate.getMonth() >= today.getMonth() && newViewDate.getMonth() <= maxDate.getMonth()) {
       setViewDate(newViewDate);
+      localStorage.setItem('viewDate', newViewDate.toString());
     }
   };
 
