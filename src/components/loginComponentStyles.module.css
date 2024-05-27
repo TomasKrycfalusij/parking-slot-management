@@ -1,0 +1,27 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 16em
+}
+
+.loginDescription {
+    margin: 0;
+    text-align: center;
+}
+
+.loginButton {
+    background: linear-gradient(135deg, var(--inversed-button-color) 50%, var(--button-color) 50%);
+    background-size: 260% 260%;
+    background-position: 98% 2%;
+    border: 1px solid transparent;
+    transition-duration: 0.5s;
+}
+
+.loginButton:hover {
+    background: linear-gradient(135deg, var(--inversed-button-color) 50%, var(--button-color) 50%);
+    background-size: 260% 260%;
+    background-position: 2% 98%;
+    border-color: var(--button-color);
+    color: var(--custom-text-color);
+}

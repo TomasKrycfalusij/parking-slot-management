@@ -1,13 +1,54 @@
 :root {
   --background-color: #212121;
-  --calendar-color: #2f2f2f;
+  --inversed-text-color: #212121;
   --custom-text-color: #e1e1e1;
+  --button-color: #e1e1e1;
+  --inversed-button-color: #212121;
+  --calendar-color: #2f2f2f;
 }
 
-html, tr, td, th, p {
+html, tr, td, th, p, h1, h2, h3, h4, h5, h6, a, span, div, input, button, select, option, label, textarea {
   color: var(--custom-text-color);
+  font-family: "Montserrat";
+}
+
+select {
+  background: var(--custom-text-color);
+  color: var(--inversed-text-color);
+  border-radius: 0.5em;
+  padding: 0.5em 0.5em;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+
+select option {
+  background: var(--custom-text-color);
+  color: var(--inversed-text-color);
+  border: none;
+  cursor: pointer;
 }
 
 body {
   background-color: var(--background-color);
+  margin: 0;
+}
+
+.btn {
+  background: var(--button-color);
+  color: var(--inversed-text-color);
+  border-radius: 0.5em;
+  padding: 0.5em 2em;
+  border: none;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+.btn:hover {
+  background: var(--inversed-button-color);
+  color: var(--custom-text-color);
+  border: 1px solid var(--button-color);
 }

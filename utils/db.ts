@@ -7,10 +7,7 @@ export const connectToDatabase = async () => {
     return mongoose;
   }
 
-  await mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(MONGO_URI);
   return mongoose
 };
 

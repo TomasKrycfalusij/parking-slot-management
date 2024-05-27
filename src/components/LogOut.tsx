@@ -7,7 +7,7 @@ const LogOut = () => {
 
   return (
     <div>
-        <button type="submit" onClick={() => logOutUser()}>Odhlásit se</button>
+        <button className={`btn`} type="submit" onClick={() => logOutUser()}>Odhlásit se</button>
     </div>
   )
 }
