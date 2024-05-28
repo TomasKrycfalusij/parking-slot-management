@@ -32,7 +32,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
   const handleDateChange = async (e: { value: Nullable<Date> }) => {
     setSelectedDate(e.value);
   
-    if (e.value) {
+  if (e.value && loggedUser) {
       const selectedDateString = e.value.toLocaleDateString('cs-CZ');
   
       const matchedDay = days?.find(singleDay => new Date(singleDay.date).toLocaleDateString('cs-CZ') === selectedDateString);

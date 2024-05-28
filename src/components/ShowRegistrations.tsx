@@ -10,7 +10,6 @@ interface ShowRegistrationsProps {
 
 const ShowRegistrations: React.FC<ShowRegistrationsProps> = ({ days }) => {
   const { loggedUser } = useUser();
-
   const registeredDays = days
     ?.filter(day => day.bookings.includes(loggedUser))
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
