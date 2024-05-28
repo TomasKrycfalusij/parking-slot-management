@@ -1,5 +1,6 @@
 .navContainer {
-    position: fixed;
+    z-index: 5;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -7,16 +8,78 @@
     display: flex;
     justify-content: space-between;
     padding: 0.5em 1em;
+    align-items: center;
+}
+
+.navUlPhone {
+    display: flex !important;
+}
+
+.navUlPc {
+    display: none !important;
 }
 
 .horizontalList {
+    z-index: -1;
     display: flex;
     list-style: none;
+    position: fixed;
+    top: -4rem;
+    left: 0;
+    right: 0;
+    background: var(--navbar-color);
+    flex-direction: column;
+    margin: 0;
+    transition-duration: 0.5s;
+    padding: 0;
 }
 
 .horizontalList li {
-    margin-left: 1rem;
+    margin: 0.75rem 0;
 }
+
+.navButton {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    transition-duration: 0.3s;
+}
+
+.navButton:hover {
+    opacity: 0.7;
+}
+
+@media screen and (min-width: 768px){
+    .horizontalList {
+        position: static;
+        display: flex;
+        background: none;
+        flex-direction: row;
+    }
+    .navUlPc {
+        display: flex !important;
+    }
+    .horizontalList li {
+        margin-left: 1rem;
+    }
+    .navButton {
+        display: none;
+    }
+    .navUlPhone {
+        display: none !important;
+    }
+}
+
+.navActive {
+    position: fixed;
+    z-index: -1;
+    visibility: visible;
+    display: flex;
+    top: 4rem;
+    transition-duration: 0.5s;
+}
+
 
 .horizontalList li a {
     color: var(--custom-text-color);
@@ -28,3 +91,5 @@
 .horizontalList li:hover a {
     opacity: 0.7;
 }
+
+
