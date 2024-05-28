@@ -1,0 +1,31 @@
+.navContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--navbar-color);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 1em;
+}
+
+.horizontalList {
+    display: flex;
+    list-style: none;
+}
+
+.horizontalList li {
+    margin-left: 1rem;
+}
+
+.horizontalList li a {
+    color: var(--custom-text-color);
+    text-decoration: none;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.horizontalList li:hover a {
+    opacity: 0.7;
+}
+

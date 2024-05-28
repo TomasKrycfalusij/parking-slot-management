@@ -1,21 +1,33 @@
 "use client"
 import { IDay } from '../../models/day';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, CalendarDateTemplateEvent } from 'primereact/calendar';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { Nullable } from 'primereact/ts-helpers';
 import { useUser } from './UserContext';
+import './calendarRegistration.css';
 
 interface CalendarRegistrationProps {
   days?: IDay[];
 }
 
+const defaultCapacity: number = 10;
+
 const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => {
   const [selectedDate, setSelectedDate] = useState<Nullable<Date>>(null);
-  const [viewDate, setViewDate] = useState<Date | undefined>(new Date());
+  const [viewDate, setViewDate] = useState<Date | undefined>(new Date())
   const { loggedUser } = useUser();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedViewDate = localStorage.getItem('viewDate');
+      if (storedViewDate) {
+        setViewDate(new Date(storedViewDate));
+      }
+    }
+  }, []);
 
   const handleDateChange = async (e: { value: Nullable<Date> }) => {
     setSelectedDate(e.value);
@@ -26,7 +38,18 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
       const matchedDay = days?.find(singleDay => new Date(singleDay.date).toLocaleDateString('cs-CZ') === selectedDateString);
   
       if (matchedDay) {
-        if (matchedDay.bookings.length < matchedDay.capacity) {
+        const isUserRegistered = matchedDay.bookings.includes(loggedUser);
+
+        if (isUserRegistered) {
+          await fetch('/api/removePersonFromDay', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ dayId: matchedDay._id, person: loggedUser }),
+          });
+          console.log("user removed");
+        } else if (matchedDay.bookings.length < matchedDay.capacity) {
           await fetch('/api/addPersonToDay', {
             method: 'POST',
             headers: {
@@ -34,9 +57,8 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
             },
             body: JSON.stringify({ dayId: matchedDay._id, person: loggedUser }),
           });
-          console.log("empty");
+          console.log("user added");
         } else {
-          // show error message
           console.log("full");
         }
       } else {
@@ -45,12 +67,12 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ date: e.value, capacity: 2, person: loggedUser }),
+          body: JSON.stringify({ date: e.value, capacity: defaultCapacity, person: loggedUser }),
         });
       }
     }
+    window.location.reload();
   };
-
 
   const today = new Date();
   const maxDate = new Date();
@@ -60,6 +82,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
     const newViewDate = e.value;
     if (newViewDate.getMonth() >= today.getMonth() && newViewDate.getMonth() <= maxDate.getMonth()) {
       setViewDate(newViewDate);
+      localStorage.setItem('viewDate', newViewDate.toString());
     }
   };
 
@@ -74,9 +97,9 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
 
   return (
     <div>
-      <p>Calendar</p>
-
+      <h1>Kalendář</h1>
       <Calendar 
+        className={`calendar`}
         value={selectedDate || undefined} 
         onChange={(e) => handleDateChange(e)} 
         showIcon 
@@ -88,17 +111,20 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
         variant="filled"
         dateTemplate={(date) => {
           const matchedDay = matchDate(date, days);
+          const isUserRegistered = matchedDay?.bookings.includes(loggedUser);
+
           return (
-            <div>
-              <span>{date.day}</span>
-              <p>
-                {matchedDay ? `${matchedDay.bookings.length} / ${matchedDay.capacity}` : ''}
+            <div className={`singleDay`}>
+              <span className={`dayNumber`}>{date.day}</span>
+              <p className={`availableSpacesNumber`}>
+                {matchedDay ? `${matchedDay.capacity - matchedDay.bookings.length}/${matchedDay.capacity}` : `${defaultCapacity}/${defaultCapacity}`}
               </p>
+              {isUserRegistered && <span className={`registeredSign`}></span>}
             </div>
           );
         }}
       />
-      <p>Zvolené datum: {selectedDate ? selectedDate.toLocaleDateString('cs-CZ') : "No date selected"}</p>
+      {/* <p>Zvolené datum: {selectedDate ? selectedDate.toLocaleDateString('cs-CZ') : "žádné"}</p> */}
     </div>
   );
 };

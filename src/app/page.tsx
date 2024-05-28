@@ -13,10 +13,9 @@ const Home: React.FC = async () => {
         <meta name="description" content="Reserve your parking slot." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <h1>Registrace</h1>
+      <main className={`${styles.main}`}>
+        <h1>BATMAN</h1>
         <LoginComponent />
-        <a href="/calendar">Kalendář</a>
       </main>
     </>
   );

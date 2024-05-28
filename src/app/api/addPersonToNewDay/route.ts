@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Day already exists' }, { status: 400 });
     }
 
-    const newDay = new Day({ date, capacity, bookings: [person] }); // Inserting the first person
+    const newDay = new Day({ date, capacity, bookings: [person] });
     console.log('New day object:', newDay);
     await newDay.save();
     console.log('Day saved successfully');

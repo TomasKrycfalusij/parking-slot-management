@@ -1,2 +1,3 @@
-- mongo-data dát do gitignore
 - promazávat staré dny v datbázi
+- uživatele do databáze přes foreign keys
+- importování fontů
