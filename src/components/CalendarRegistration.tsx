@@ -97,7 +97,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
 
   return (
     <div>
-      <p>Calendar</p>
+      <h1>Kalendář</h1>
       <Calendar 
         className={`calendar`}
         value={selectedDate || undefined} 
@@ -124,7 +124,7 @@ const CalendarRegistration: React.FC<CalendarRegistrationProps> = ({ days }) => 
           );
         }}
       />
-      <p>Zvolené datum: {selectedDate ? selectedDate.toLocaleDateString('cs-CZ') : "No date selected"}</p>
+      {/* <p>Zvolené datum: {selectedDate ? selectedDate.toLocaleDateString('cs-CZ') : "žádné"}</p> */}
     </div>
   );
 };
