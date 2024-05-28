@@ -21,8 +21,6 @@
 .horizontalList li a {
     color: var(--custom-text-color);
     text-decoration: none;
-}
-
     transition-duration: 0.3s;
     cursor: pointer;
 }
