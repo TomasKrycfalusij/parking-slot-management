@@ -15,10 +15,18 @@
 }
 
 .horizontalList li {
-    margin-right: 10px;
+    margin-left: 1rem;
 }
 
 .horizontalList li a {
     color: var(--custom-text-color);
     text-decoration: none;
+}
+
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.horizontalList li:hover a {
+    opacity: 0.7;
 }
