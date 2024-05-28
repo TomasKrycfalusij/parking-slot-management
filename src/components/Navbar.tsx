@@ -22,11 +22,11 @@ const Navbar = () => {
                     <li><a onClick={() => logOutUser()}>Odhlásit se</a></li>
                 </ul>
         </div>
-      <ul className={`${navbarStyles.horizontalList} ${navVisible ? navbarStyles.navActive : ''} ${navbarStyles.navUlPhone}`}>
-        <li><a href="/calendar">Kalendář</a></li>
-        <li><a href="/registrations">Registrace</a></li>
-        <li><a onClick={() => logOutUser()}>Odhlásit se</a></li>
-      </ul>
+        <ul className={`${navbarStyles.horizontalList} ${navVisible ? navbarStyles.navActive : ''} ${navbarStyles.navUlPhone}`}>
+          <li><a href="/calendar">Kalendář</a></li>
+          <li><a href="/registrations">Registrace</a></li>
+          <li><a onClick={() => logOutUser()}>Odhlásit se</a></li>
+        </ul>
     </>
     );
 };
